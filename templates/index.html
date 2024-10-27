@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Predictor</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .prediction-form {
+            background: #fff;
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <form class="needs-validation prediction-form" novalidate action="/predict" method="post">
+        <h2 class="text-center mb-4">House Price Predictor</h2>
+        <div class="form-row">
+            <div class="form-row">
+                <div class="col-md-6 mb-3">
+                    <label for="income">Average Area Income</label>
+                    <input type="text" class="form-control" id="income" name="income" placeholder="Average Area Income" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid average area income.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="age">Average House Age</label>
+                    <input type="text" class="form-control" id="age" name="age" placeholder="Average House Age" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid average house age.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="rooms">Average Number of Rooms</label>
+                    <input type="text" class="form-control" id="rooms" name="rooms" placeholder="Average Number of Rooms" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid number of rooms.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="bedrooms">Average Number of Bedrooms</label>
+                    <input type="text" class="form-control" id="bedrooms" name="bedrooms" placeholder="Average Number of Bedrooms" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid number of bedrooms.
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="population">Area Population</label>
+                    <input type="text" class="form-control" id="population" name="population" placeholder="Area Population" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid area population.
+                    </div>
+                </div>
+            </div>
+            <!-- Add other input fields in similar structure -->
+        </div>
+
+        <div class="row text-center py-4">
+            <button class="btn btn-primary btn-lg mx-auto" type="submit">Predict</button>
+        </div>
+
+        <!-- Prediction Result -->
+        {% if prediction_text %}
+            <div class="alert alert-success mt-4">
+                <strong>Prediction:</strong> {{ prediction_text }}
+            </div>
+        {% endif %}
+    </form>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript for form validation
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>
